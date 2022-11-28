@@ -2,7 +2,11 @@
 
 A small web application that can connect to a Postgres + PostGIS database and produce 3D tiles (both hierarchy and data) for use in Cesium.
 
+
 # getting started
+
+
+## load some 3d data into Postgres
 
 To get some 3D data in Postgres you can follow the following steps:
 
@@ -28,7 +32,8 @@ Perform a coordinate transformation inside the database to go from EPSG:7415 (RD
 create table b3dm_lod22_3d_epsg4978 as select gid, st_transform(geometrie, 4978) as geom4978 from b3dm_lod22_3d;
 ```
 
-### Running the web service
+
+### Run the web service
 
 After loading the data, fix the settings in database.ini for your local database set up.
 
@@ -48,12 +53,19 @@ $ python3 serve.py
 
 Now connect with a webbrowser to the service running on your own laptop:
 
-<http://127.0.0.1:5000>
+- <http://127.0.0.1:5000>
 
 A web page should show up, displaying the version of the Postgres database to which the service is connected.
 
 This page contains a link to:
 
-<http://127.0.0.1:5000/ui/>
+- <http://127.0.0.1:5000/ui/>
 
-This loads Cesium, and after a while the loaded tile with buildings should show inside Cesium.
+This loads the Cesium javascript application, and after a while (if proper database connection and data loaded succesfully) the loaded tile with buildings should show inside the Cesium globe.
+
+
+## Based on
+
+This project contains code (triangulating / producing gltf) from:
+- <https://gitlab.com/Oslandia/py3dtiles>
+
